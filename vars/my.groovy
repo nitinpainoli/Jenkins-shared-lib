@@ -30,10 +30,10 @@ pipeline {
 			stage("Terraform init") {
 				
 				steps {
-					
-				      sh "terraform init -input=false"
+					script {
+				            terraform init -input=false
 
-					
+					}
 				}
 			} // Stage End
 		
