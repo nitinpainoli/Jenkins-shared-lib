@@ -10,6 +10,10 @@
 		
 
 def call(Map config = [:]) {
+	
+		def gitRepo = ""
+                def gitCredentialsId = ""
+                def gitBranch = "" 
 
 pipeline {
     agent any
@@ -25,7 +29,7 @@ pipeline {
 			
 				steps {
 					script {
-						git(url: ${config.gitRepo}, branch: ${config.gitBranch}, credentialsId: ${config.gitCredentialsId})
+						git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
 						
 					}
 				}
