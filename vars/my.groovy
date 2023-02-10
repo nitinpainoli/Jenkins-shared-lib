@@ -27,14 +27,15 @@ pipeline {
 
 	 // Stage End
 
-// 			stage("Terraform init") {
+			stage("Terraform init") {
 				
-// 				steps {
-// 					script {
-// 						terraform init
-// 					}
-// 				}
-// 			} // Stage End
+				steps {
+					
+				      sh "terraform init -input=false"
+
+					
+				}
+			} // Stage End
 		
 	// 	post {
 	// 		always {
