@@ -1,3 +1,3 @@
-def call(Map config = [:]) {
-    sh "git clone"
+def call(gitRepo, gitBranch, gitCredentialsId) {
+    git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
 }
