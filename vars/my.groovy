@@ -1,8 +1,8 @@
 def call (Map params) {
 	
 	def gitRepo = 'https://github.com/nitinpainoli/TerraformGCP.git'
-        def gitCredentialsId = mycredsnitin
-        def gitBranch = main     
+        def gitCredentialsId = 'mycredsnitin'
+        def gitBranch = 'main' 
 pipeline {
     agent any
 
