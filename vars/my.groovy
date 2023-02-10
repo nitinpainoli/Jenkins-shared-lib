@@ -1,8 +1,8 @@
 def call(Map args = [
+	              gitBranch: null,
                       gitRepo: null,
-                      gitCredentialsId: null,
-                      gitBranch: null
-                     ]){	
+                      gitCredentialsId: null 
+                     ] ) {	
 	
 // 	def gitRepo = 'https://github.com/nitinpainoli/TerraformGCP.git'
 //         def gitCredentialsId = 'mycredsnitin'
