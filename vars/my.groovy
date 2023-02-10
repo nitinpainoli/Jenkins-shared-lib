@@ -31,7 +31,7 @@ pipeline {
 				
 				steps {
 					script {
-				            terraform init -input=false
+				            "terraform init -input=false"
 
 					}
 				}
