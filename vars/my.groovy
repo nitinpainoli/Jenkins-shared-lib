@@ -22,21 +22,19 @@ pipeline {
 					}
 				}
 			}    
-    }
-}
-
-	 // Stage End
-
-			stage("Terraform init") {
+    
+        stage("Terraform init") {
 				
 				steps {
-					script {
-				            "terraform init -input=false"
+					
+				    sh "terraform init -input=false"
 
-					}
+					
 				}
 			} // Stage End
-		
+    }
+}
+}
 	// 	post {
 	// 		always {
 	// 			script {
@@ -74,4 +72,4 @@ pipeline {
 
     // }
 	// 	}
-	}
+
