@@ -30,10 +30,9 @@ pipeline {
 			
 				steps {
 					script {
-						git branch: gitBranch,
-            				        credentialsId: gitCredentialsId,
-            				        url: gitRepo
-                                              
+						
+				          	git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
+                             
 
 					}
 				}
