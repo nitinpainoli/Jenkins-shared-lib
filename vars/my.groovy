@@ -1,8 +1,8 @@
 def call (Map params) {
 	
 	def gitRepo = null
-    def gitCredentialsId = null
-
+        def gitCredentialsId = null
+        def gitBranch = null     
 pipeline {
     agent any
 
