@@ -1,32 +1,31 @@
 def call (Map params) {
-	//def utils = new Utils()
-
+	
 	def gitRepo = null
-	
-	if (params) { gitRepo = params.get("gitRepo") }
-	def envName = null
-	
     def gitCredentialsId = null
 
-	pipeline {
+pipeline {
+    agent any
 
-		stages {
-			stage("Clean Workspace") {
+    stages {
+     	stage("Clean Workspace") {
 				steps {
 					cleanWs()
 				}
 			}
 
-			stage("Git checkout & Initialize for Build") {
+        stage("Git checkout & Initialize for Build") {
 			
 				steps {
 					script {
 						git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
 
-						//utils.initBuild(gitBranch)
 					}
 				}
-			} // Stage End
+			}    
+    }
+}
+
+	 // Stage End
 
 // 			stage("Terraform init") {
 				
@@ -75,5 +74,3 @@ def call (Map params) {
     // }
 	// 	}
 	}
-}
-}
