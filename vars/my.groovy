@@ -33,7 +33,7 @@ pipeline {
 			
 				steps {
 					script {
-						git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
+						git branch: gitBranch, credentialsId: gitCredentialsId, url: gitRepo
 						
 					}
 				}
