@@ -1,19 +1,19 @@
-// def call(Map args = [
-//                       gitRepo: "",
-//                       gitCredentialsId: '',
-//                       gitBranch: ''
-//                      ]){	
+def call(Map args = [
+                      gitRepo: null,
+                      gitCredentialsId: null,
+                      gitBranch: null
+                     ]){	
 	
 // 	def gitRepo = 'https://github.com/nitinpainoli/TerraformGCP.git'
 //         def gitCredentialsId = 'mycredsnitin'
 //         def gitBranch = 'main' 
 		
 
-def call(Map config = [:]) {
+// def call(Map config = [:]) {
 	
-	        def gitRepo = "${gitRepo}"
-                def gitCredentialsId = "${gitCredentialsId}"
-                def gitBranch = "${gitBranch}"
+// 	        def gitRepo = "${gitRepo}"
+//                 def gitCredentialsId = "${gitCredentialsId}"
+//                 def gitBranch = "${gitBranch}"
 
 pipeline {
     agent any
