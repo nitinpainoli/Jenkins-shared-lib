@@ -1,5 +1,5 @@
 def call (Map params) {
-	def utils = new Utils()
+	//def utils = new Utils()
 
 	def gitRepo = null
 	
@@ -21,7 +21,8 @@ def call (Map params) {
 			
 				steps {
 					script {
-						utils.gitCheckout(gitRepo, gitBranch, gitCredentialsId)
+						git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
+
 						//utils.initBuild(gitBranch)
 					}
 				}
