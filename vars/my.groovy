@@ -1,6 +1,6 @@
 def call (Map params) {
 	
-	def gitRepo = https://github.com/nitinpainoli/TerraformGCP.git
+	def gitRepo = 'https://github.com/nitinpainoli/TerraformGCP.git'
         def gitCredentialsId = mycredsnitin
         def gitBranch = main     
 pipeline {
