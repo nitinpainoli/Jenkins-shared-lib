@@ -14,7 +14,11 @@ def call(Map args = [
 // 	        def gitRepo = "${gitRepo}"
 //                 def gitCredentialsId = "${gitCredentialsId}"
 //                 def gitBranch = "${gitBranch}"
-
+	
+def gitCheckout(gitRepo, gitBranch, gitCredentialsId) {
+    git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
+	
+}
 pipeline {
     agent any
 
