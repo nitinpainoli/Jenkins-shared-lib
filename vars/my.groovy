@@ -11,7 +11,7 @@
 
 def call(Map config = [:]) {
 	
-		def gitRepo = null
+	        def gitRepo = \${test}
                 def gitCredentialsId = null
                 def gitBranch = null
 
