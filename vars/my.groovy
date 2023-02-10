@@ -1,13 +1,15 @@
-def call(Map args = [
-                      gitRepo: '',
-                      gitCredentialsId: '',
-                      gitBranch: ''
-                     ]){	
+// def call(Map args = [
+//                       gitRepo: "",
+//                       gitCredentialsId: '',
+//                       gitBranch: ''
+//                      ]){	
 	
 // 	def gitRepo = 'https://github.com/nitinpainoli/TerraformGCP.git'
 //         def gitCredentialsId = 'mycredsnitin'
 //         def gitBranch = 'main' 
 		
+
+def call(Map config = [:]) {
 
 pipeline {
     agent any
@@ -23,7 +25,7 @@ pipeline {
 			
 				steps {
 					script {
-						git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
+						git(url: ${config.gitRepo}, branch: ${config.gitBranch}, credentialsId: ${config.gitCredentialsId})
 						
 					}
 				}
