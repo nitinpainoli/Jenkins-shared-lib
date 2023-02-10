@@ -11,9 +11,9 @@
 
 def call(Map config = [:]) {
 	
-	        def gitRepo = "${test}"
-                def gitCredentialsId = null
-                def gitBranch = null
+	        def gitRepo = "${gitRepo}"
+                def gitCredentialsId = "${gitCredentialsId}"
+                def gitBranch = "${gitBranch}"
 
 pipeline {
     agent any
