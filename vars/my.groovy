@@ -4,9 +4,9 @@ def call(Map args = [
                       gitCredentialsId: ''
                      ] ){
 
-  args.gitRepo = args.gitRepo ?: 
-  args.gitBranch = args.gitBranch ?: 
-  args.gitCredentialsId = args.gitCredentialsId ?: 
+  args.gitRepo = args.gitRepo ?: ''
+  args.gitBranch = args.gitBranch ?: ''
+  args.gitCredentialsId = args.gitCredentialsId ?: '' 
 
 pipeline {
     agent any
