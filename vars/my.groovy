@@ -1,24 +1,24 @@
 def call(Map args = [
-	              gitBranch: null,
-                      gitRepo: null,
-                      gitCredentialsId: null 
-                     ] ) {	
-	
-// 	def gitRepo = 'https://github.com/nitinpainoli/TerraformGCP.git'
-//         def gitCredentialsId = 'mycredsnitin'
-//         def gitBranch = 'main' 
-		
+                      gitRepo: '',
+                      gitBranch: '.',
+                      gitCredentialsId: ''
+                     ] ){
 
-// def call(Map config = [:]) {
-	
-// 	        def gitRepo = "${gitRepo}"
-//                 def gitCredentialsId = "${gitCredentialsId}"
-//                 def gitBranch = "${gitBranch}"
-	
+  args.gitRepo = args.gitRepo ?: 
+  args.gitBranch = args.gitBranch ?: 
+  args.gitCredentialsId = args.gitCredentialsId ?: 
 
 pipeline {
     agent any
+    environment {
+            
+            gitRepo = "$args.gitRepo"
+            gitBranch = "$args.gitBranch"
+            gitCredentialsId = "$args.gitCredentialsId"
 
+
+
+    }
     stages {
      	stage("Clean Workspace") {
 				steps {
@@ -27,64 +27,61 @@ pipeline {
 			}
 
         stage("Git checkout & Initialize for Build") {
-			
-				steps {
+		   steps {
 					script {
 						
 				          	git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
-                             
-
-					}
+  					}
 				}
 			}    
-    
         stage("Terraform init") {
-				
-				steps {
+		  steps {
 					
-				    sh "terraform init -input=false"
-
-					
+				    sh "terraform init -input=false"	
 				}
-			} // Stage End
-    }
+			} 		
+				
+        }
+        stage('Terraform-Format') {
+            steps {
+                sh "terraform fmt -list=true -diff=true"
+                
+            }
+            }
+
+        stage('Terraform-Validate') {
+            steps {
+                sh "terraform validate"
+                
+            }
+            }
+
+        stage('Terraform-Plan') {
+            steps {
+                sh 'terraform plan -out tfplan'
+                
+            }
+            }
+
+        stage('Terraform-Approval') {
+            steps {
+                script {
+                timeout(time: 10, unit: 'MINUTES') {
+                    def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+                    ])
+                }
+                }
+            }
+            }
+
+        stage('Terraform-Apply') {
+            steps {
+                sh 'terraform apply -input=false tfplan'
+                
+            }
+            }
+
+        }
 }
-}
-	// 	post {
-	// 		always {
-	// 			script {
-	// 				utils.cleanup()
-	// 				cleanWs()
-	// 			}
-	// 		}
-	// 		success {
-    //              script {
-    //                  if (envName == 'prod')
-    //  					  {       
-    //   						slackSend channel: "#aws-jenkins",
-    //   						botUser: true, 
-    //   						tokenCredentialId: "#################", 
-    //   						color: 'good', 
-    //   						message: "${appName} application Jenkins Job SUCCESS in ${envName} environment. - ${BUILD_URL}"
-
-    // 					 }
-    //                    }
-
-    //                 }
-		    
-	// 		failure {
-    //               script {
-    //                  if (envName == 'prod')
-    //  					  {       
-    //   						slackSend channel: "#aws-jenkins",
-    //   						botUser: true, 
-    //   						tokenCredentialId: "#################", 
-    //   						color: 'bad', 
-    //   						message: "ALERT: ${appName} application Jenkins Job FAILED in ${envName} environment. - ${BUILD_URL}"
-
-    // 					 }
-    //                    }
-
-    // }
-	// 	}
 
