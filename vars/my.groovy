@@ -12,7 +12,7 @@
 // def call(Map config = [:]) {
 
 
-def call() {
+def call(String TERRAFORM_DIR) {
 	
 def TERRAFORM_DIR = ""
 	
