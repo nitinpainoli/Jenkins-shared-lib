@@ -27,7 +27,8 @@ pipeline {
    
         stage("Terraform init") {
 		  steps {
-			            sh "cd ${TERRAFORM_DIR}"	
+			            sh "cd ${TERRAFORM_DIR}"
+			           sh "ls -la"
 				    sh "terraform init -input=false"	
 				}
 			} 		
@@ -65,12 +66,12 @@ pipeline {
             }
             }
 
-        stage('Terraform-Apply') {
-            steps {
-                sh 'terraform apply -input=false tfplan'
+//         stage('Terraform-Apply') {
+//             steps {
+//                 sh 'terraform apply -input=false tfplan'
                 
-            }
-            }
+//             }
+//             }
 
         }
 }	
