@@ -19,6 +19,8 @@ pipeline {
     agent any
 	
     stages {
+	    
+	    
      	stage("Clean Workspace") {
 				steps {
 					cleanWs()
@@ -27,35 +29,42 @@ pipeline {
    
         stage("Terraform init") {
 		  steps {
-			            sh "cd ${TERRAFORM_DIR}"
+			  dir("${TERRAFORM_DIR}") {
+
 			           sh "ls -la"
 				    sh "terraform init -input=false"	
 				}
-			} 		
+			  
+			} 
+	     }
 				
         stage('Terraform-Format') {
             steps {
+		 dir("${TERRAFORM_DIR}") {  
                 sh "terraform fmt -list=true -diff=true"
-                
+		 }
             }
             }
 
         stage('Terraform-Validate') {
             steps {
+	        dir("${TERRAFORM_DIR}") {    
                 sh "terraform validate"
-                
+		}
             }
             }
 
         stage('Terraform-Plan') {
             steps {
+		dir("${TERRAFORM_DIR}") {	    
                 sh 'terraform plan -out tfplan'
-                
+		}
             }
             }
 
         stage('Terraform-Approval') {
             steps {
+	        dir("${TERRAFORM_DIR}") {		    
                 script {
                 timeout(time: 10, unit: 'MINUTES') {
                     def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
@@ -65,6 +74,7 @@ pipeline {
                 }
             }
             }
+	}
 
 //         stage('Terraform-Apply') {
 //             steps {
