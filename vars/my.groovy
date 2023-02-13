@@ -1,20 +1,24 @@
 	
 //def call(Map config = [:]) {
 
-def call(Map args = [
-                      dir: '.',
-                      args: ''
-                     ] ){
+// def call(Map args = [
+//                       dir: '.',
+//                       args: ''
+//                      ] ){
 	
-	  args.dir = args.dir ?: '.'
+// 	  args.dir = args.dir ?: '.'
 
-	
+
+def call(Map config = [:]) {
+
+def TERRAFORM_DIR = ""
 	
 pipeline {
     agent any
-   environment {
-      TERRAFORM_DIR = "$args.dir"
-   }
+	
+//    environment {
+//       TERRAFORM_DIR = "$args.dir"
+//    }
     stages {
      	stage("Clean Workspace") {
 				steps {
