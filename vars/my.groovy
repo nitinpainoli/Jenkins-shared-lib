@@ -2,8 +2,8 @@
 //def call(Map config = [:]) {
 
 def call(Map args = [
-                      dir: '.'
-                      args: '',
+                      dir: '.',
+                      args: ''
                      ] ){
 	
 	  args.dir = args.dir ?: '.'
