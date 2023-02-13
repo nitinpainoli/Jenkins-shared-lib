@@ -11,7 +11,10 @@
 
 def call(Map config = [:]) {
 
-def TERRAFORM_DIR = ""
+
+def call() {
+	
+def TERRAFORM_DIR = "/home/ec2-user/jenkins/workspace/abc"
 	
 pipeline {
     agent any
