@@ -40,7 +40,7 @@ pipeline {
 // 			}    
         stage("Terraform init") {
 		  steps {
-			  	    sh "cd ${config.terraform-dir}	
+			  	    sh "cd ${config.terraform-dir}"	
 				    sh "terraform init -input=false"	
 				}
 			} 		
