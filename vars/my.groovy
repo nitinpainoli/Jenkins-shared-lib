@@ -19,9 +19,6 @@ def TERRAFORM_DIR = "/home/ec2-user/jenkins/workspace/abc"
 pipeline {
     agent any
 	
-//    environment {
-//       TERRAFORM_DIR = "$args.dir"
-//    }
     stages {
      	stage("Clean Workspace") {
 				steps {
@@ -36,7 +33,6 @@ pipeline {
 				}
 			} 		
 				
-        }
         stage('Terraform-Format') {
             steps {
                 sh "terraform fmt -list=true -diff=true"
@@ -78,5 +74,6 @@ pipeline {
             }
 
         }
+}	
 }
 
