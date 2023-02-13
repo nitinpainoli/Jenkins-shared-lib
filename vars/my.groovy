@@ -14,7 +14,6 @@
 
 def call(String TERRAFORM_DIR) {
 	
-def TERRAFORM_DIR = ""
 	
 pipeline {
     agent any
@@ -28,7 +27,7 @@ pipeline {
    
         stage("Terraform init") {
 		  steps {
-			  	    sh "cd $TERRAFORM_DIR"	
+			            sh "cd ${TERRAFORM_DIR}"	
 				    sh "terraform init -input=false"	
 				}
 			} 		
