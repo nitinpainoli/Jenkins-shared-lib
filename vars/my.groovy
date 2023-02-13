@@ -1,46 +1,30 @@
-// def call(Map args = [
-//                       gitRepo: '',
-//                       gitBranch: '.',
-//                       gitCredentialsId: ''
-//                      ] ){
-
-//   args.gitRepo = args.gitRepo ?: ''
-//   args.gitBranch = args.gitBranch ?: ''
-//   args.gitCredentialsId = args.gitCredentialsId ?: '' 
-
-//def call(Map args = [] ) {
 	
-def call(Map config = [:]) {
+//def call(Map config = [:]) {
+
+def call(Map args = [
+                      dir: '.'
+                      args: '',
+                     ] ){
+	
+	  args.dir = args.dir ?: '.'
+
+	
 	
 pipeline {
     agent any
-//     environment {
-            
-//             gitRepo = "$args.gitRepo"
-//             gitBranch = "$args.gitBranch"
-//             gitCredentialsId = "$args.gitCredentialsId"
-
-
-
-//     }
+   environment {
+      TERRAFORM_DIR = "$args.dir"
+   }
     stages {
      	stage("Clean Workspace") {
 				steps {
 					cleanWs()
 				}
 			}
-
-//         stage("Git checkout & Initialize for Build") {
-// 		   steps {
-// 					script {
-						
-// 				          	git(url: gitRepo, branch: gitBranch, credentialsId: gitCredentialsId)
-//   					}
-// 				}
-// 			}    
+   
         stage("Terraform init") {
 		  steps {
-			  	    sh "cd ${config.terraform-dir}"	
+			  	    sh "cd $TERRAFORM_DIR"	
 				    sh "terraform init -input=false"	
 				}
 			} 		
