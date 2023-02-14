@@ -1,19 +1,16 @@
 
 def call(Map args = [
-                      dir: '.',
-                      agent: ''
+                      dir: '.'
+                
                      ] ){
 
 
-  args.agent =  args.agent ?: '.'
   args.dir = args.dir ?: '.'
   
 
   pipeline {
 
-    agent {
-      label ("$agent")
-    }
+    agent any
 
     environment {
       TERRAFORM_DIR = "$args.dir"
