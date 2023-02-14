@@ -1,22 +1,13 @@
 	
-//def call(Map config = [:]) {
-
-// def call(Map args = [
-//                       dir: '.',
-//                       args: ''
-//                      ] ){
-	
-// 	  args.dir = args.dir ?: '.'
 
 
-// def call(Map config = [:]) {
-
-
-def call(String TERRAFORM_DIR) {
+def call(String agent_name, String TERRAFORM_DIR) {
 	
 	
 pipeline {
-    agent any
+     agent {
+	     label "${agent_name}"
+  }
 	
     stages {
 	    
