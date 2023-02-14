@@ -29,7 +29,7 @@ def call(Map args) {
 
         stage('Terraform Fmt') {
           steps {
-                dir("${TERRAFORM_DIR}") {  
+                dir("${args.dir}") {  
                 sh "terraform fmt -list=true -diff=true"
 		 }
           }
@@ -38,7 +38,7 @@ def call(Map args) {
 
       stage('Terraform Init') {
         steps {
-        dir("${TERRAFORM_DIR}") {
+        dir("${args.dir}") {
 
 			           sh "ls -la"
 				    sh "terraform init -input=false"	
@@ -56,7 +56,7 @@ def call(Map args) {
 
       stage('Terraform Plan') {
         steps {
-         dir("${TERRAFORM_DIR}") {	    
+         dir("${args.dir}") {	    
                 sh 'terraform plan -out tfplan'
 		}
         }
