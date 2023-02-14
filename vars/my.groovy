@@ -14,11 +14,11 @@ def call(Map args = [
 
  environment {
       TERRAFORM_DIR = "$args.dir"
-      agent = "$args.agent"
+      TERRAFORM_AGENT = "$args.agent"
     }
 
     agent {
-    label "${agent}"
+    label "${TERRAFORM_AGENT}"
     }
 
     stages {
