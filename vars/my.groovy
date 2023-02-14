@@ -1,14 +1,17 @@
 
-def call(Map args = [
-                      dir: '.',
-                      agent: '.'
+def call(Map args) {
+// = [
+//                       dir: '.',
+//                       agent: '.'
                 
-                     ] ){
+//                      ] ){
 
 
-  args.dir = args.dir ?: '.'
-  args.agent = args.agent ?: '.'
+//   args.dir = args.dir ?: '.'
+//   args.agent = args.agent ?: '.'
   
+ def dir = args.dir
+ def agent = args.agent
 
   pipeline {
 
