@@ -1,25 +1,9 @@
 
 def call(Map args) {
-// = [
-//                       dir: '.',
-//                       agent: '.'
-                
-//                      ] ){
 
-
-//   args.dir = args.dir ?: '.'
-//   args.agent = args.agent ?: '.'
-  
-//  def dir = args.dir
-//  def agent = args.agent
 "${args.agent}: ${args.dir}"	
 
   pipeline {
-
-//  environment {
-//       TERRAFORM_DIR = "$args.dir"
-//       TERRAFORM_AGENT = "$args.agent"
-//     }
 
     agent {
 	    label "${args.agent}"
@@ -48,7 +32,7 @@ def call(Map args) {
 
       stage('Terraform Validate') {
         steps {
-          dir("${TERRAFORM_DIR}") {    
+          dir("${args.dir}") {    
                 sh "terraform validate"
 		}
         }
