@@ -22,7 +22,7 @@ def call(Map args) {
 //     }
 
     agent {
-    label $agent
+	    label "${args.agent}"
     }
 
     stages {
