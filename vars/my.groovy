@@ -1,6 +1,6 @@
 def call(Map args =[ jenkins_agent: '', tf_dir: ''] ){
 
-  //args.tf_dir = args.tf_dir ?: '.'
+  args.tf_dir = args.tf_dir ?: '.'
   args.jenkins_agent = args.jenkins_agent ?: 'master'	
 
 pipeline {
@@ -23,7 +23,7 @@ pipeline {
    
         stage("Terraform init") {
 		  steps {
-			  dir("/home/ec2-user/jenkins/workspace/abc") {
+			  dir("${TERRAFORM_DIR}") {
 
 			           sh "ls -la"
 				    sh "terraform init -input=false"	
