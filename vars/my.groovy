@@ -58,28 +58,34 @@ def call(Map args =[ jenkins_agent: '', tf_dir: '', tf_workspace: ''] ){
               }
               }
   
-          stage('Terraform-Approval') {
-		    dir("${TERRAFORM_DIR}") {	 
-			  when {
-		        "${TERRAFORM_WORKSPACE}" == "default"
-		           {
-                  echo "Excecuted only on prod workspace"
-		          }
-              }
+          stage('Approval') {
+                when {
+                  beforeInput true
+                  allOf {
+                    expression {
+                      "${TERRAFORM_WORKSPACE}" != 'prod'
+                      {
+                        echo "Excecuted only on prod workspace"
 
-                 }
-              steps {
-              //dir("${TERRAFORM_DIR}") {		    
-                  script {
-                  timeout(time: 10, unit: 'MINUTES') {
-                      def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
-                      [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
-                      ])
+                      }
+                    }
+            
                   }
-                  }
+                }
+                steps {
+                    //dir("${TERRAFORM_DIR}") {		    
+                        script {
+                        timeout(time: 10, unit: 'MINUTES') {
+                            def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+                            [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+                            ])
+                        }
+                        }
+                    }    
               }
+              
+
               }
       }
   }  
   
-}
