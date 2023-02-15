@@ -64,11 +64,12 @@ pipeline {
         }
                 steps {
                     
-                    //dir("${TERRAFORM_DIR}") {		    
+                    dir("${TERRAFORM_DIR}") {		    
                         script {
                              echo "${TERRAFORM_WORKSPACE} no approval needed here"
                             
                         }
+                    }   
                     }    
             }
 
@@ -77,16 +78,28 @@ pipeline {
                     expression { "${TERRAFORM_WORKSPACE}" == 'prod' }
                 }
                 steps {
-                    
+                     
+                       dir("${TERRAFORM_DIR}") {
                         script {
+
                              echo "${TERRAFORM_WORKSPACE}"
                         timeout(time: 10, unit: 'MINUTES') {
                             def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
                             [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
                             ])
                         }
+                        }   
                         }
                     }    
+            }
+
+            stage('Terraform-Apply') {
+              steps {
+                dir("${TERRAFORM_DIR}") { 
+                  sh 'terraform apply -input=false tfplan'
+                
+            }
+              }
             }    
             
 
