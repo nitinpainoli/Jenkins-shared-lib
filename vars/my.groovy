@@ -60,9 +60,13 @@ def call(Map args =[ jenkins_agent: '', tf_dir: '', tf_workspace: ''] ){
   
           stage('Terraform-Approval') {
 		  dir("${TERRAFORM_DIR}") {	 
-              when ("${TERRAFORM_WORKSPACE}" == "default") {
+			  when {
+		  "${TERRAFORM_WORKSPACE}" == "default"
+		{
                 
                   echo "Excecuted only on prod workspace"
+		}
+			  }
 
                  }
               steps {
