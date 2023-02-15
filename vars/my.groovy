@@ -1,6 +1,6 @@
 def call(Map args =[ jenkins_agent: '', tf_dir: ''] ){
 
-  args.tf_dir = args.tf_dir ?: '.'
+  //args.tf_dir = args.tf_dir ?: '.'
   args.jenkins_agent = args.jenkins_agent ?: 'master'	
 
 pipeline {
