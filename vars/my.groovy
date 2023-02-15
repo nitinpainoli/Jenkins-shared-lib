@@ -59,14 +59,13 @@ def call(Map args =[ jenkins_agent: '', tf_dir: '', tf_workspace: ''] ){
               }
   
           stage('Terraform-Approval') {
-		  dir("${TERRAFORM_DIR}") {	 
+		    dir("${TERRAFORM_DIR}") {	 
 			  when {
-		  "${TERRAFORM_WORKSPACE}" == "default"
-		{
-                
+		        "${TERRAFORM_WORKSPACE}" == "default"
+		           {
                   echo "Excecuted only on prod workspace"
-		}
-			  }
+		          }
+              }
 
                  }
               steps {
@@ -81,15 +80,6 @@ def call(Map args =[ jenkins_agent: '', tf_dir: '', tf_workspace: ''] ){
               }
               }
       }
+  }  
   
-  //         stage('Terraform-Apply') {
-  //             steps {
-  //                 sh 'terraform apply -input=false tfplan'
-                  
-  //             }
-  //             }
-  
-          }
-      }	
-  }
-  
+}
