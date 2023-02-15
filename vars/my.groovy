@@ -13,7 +13,7 @@
 def call(Map args =[ agent: '', dir: ''] ){
 
   args.dir = args.dir ?: '.'
-  args.agent = arges.agent ?: 'master'	
+  args.agent = args.agent ?: 'master'	
 
 //"${args.agent}: ${args.dir}"	
 
