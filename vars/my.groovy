@@ -1,7 +1,8 @@
-def call(Map args =[ jenkins_agent: '', tf_dir: ''] ){
+def call(Map args =[ jenkins_agent: '', tf_dir: '', tf_workspace: ''] ){
 
   args.tf_dir = args.tf_dir ?: '.'
-  args.jenkins_agent = args.jenkins_agent ?: 'master'	
+  args.jenkins_agent = args.jenkins_agent ?: 'master'
+  args.tf_workspace = args.tf_workspace ?: 'default'	
 
 pipeline {
     agent {
@@ -56,19 +57,19 @@ pipeline {
             }
             }
 
-//         stage('Terraform-Approval') {
-//             steps {
-// 	        dir("${TERRAFORM_DIR}") {		    
-//                 script {
-//                 timeout(time: 10, unit: 'MINUTES') {
-//                     def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
-//                     [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
-//                     ])
-//                 }
-//                 }
-//             }
-//             }
-// 	}
+        stage('Terraform-Approval') {
+            steps {
+	        dir("${TERRAFORM_DIR}") {		    
+                script {
+                timeout(time: 10, unit: 'MINUTES') {
+                    def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+                    ])
+                }
+                }
+            }
+            }
+	}
 
 //         stage('Terraform-Apply') {
 //             steps {
