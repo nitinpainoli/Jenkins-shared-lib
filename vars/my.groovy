@@ -23,7 +23,7 @@ pipeline {
    
         stage("Terraform init") {
 		  steps {
-			  dir("home/ec2-user/jenkins/workspace/abc") {
+			  dir("/home/ec2-user/jenkins/workspace/abc") {
 
 			           sh "ls -la"
 				    sh "terraform init -input=false"	
