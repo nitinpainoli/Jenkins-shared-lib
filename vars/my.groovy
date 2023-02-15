@@ -58,19 +58,10 @@ pipeline {
             }
             }
 
-        stage('Approval') {
+        stage('nonApproval') {
                 when {
-                    expression { "${TERRAFORM_WORKSPACE}" != 'prod'
-                                echo "${TERRAFORM_WORKSPACE}"
-                               }
-                    // {
-                    //     echo "Excecuted only on prod workspace"
-
-                    // }
-                    
-            
+                    "${TERRAFORM_WORKSPACE}" != 'prod'
                 }
-                
                 steps {
                     
                     //dir("${TERRAFORM_DIR}") {		    
@@ -84,6 +75,24 @@ pipeline {
                         }
                     }    
             }
+
+            stage('ProdApproval') {
+                when {
+                    "${TERRAFORM_WORKSPACE}" == 'prod'
+                }
+                steps {
+                    
+                    //dir("${TERRAFORM_DIR}") {		    
+                        script {
+                             echo "${TERRAFORM_WORKSPACE}"
+                        timeout(time: 10, unit: 'MINUTES') {
+                            def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+                            [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+                            ])
+                        }
+                        }
+                    }    
+            }    
             
 
             }
