@@ -13,7 +13,8 @@ def call(Map args) {
 
         stage('Terraform Fmt') {
           steps {
-                dir("${args.dir}") {  
+                //dir("${args.dir}") {  
+		cd "${args.dir}"
 		sh "pwd"
 			
                 sh "terraform fmt -list=true -diff=true"
