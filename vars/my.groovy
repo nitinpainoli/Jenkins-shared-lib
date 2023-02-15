@@ -70,20 +70,20 @@ pipeline {
                     }    
             }
 
-            stage('ProdApproval') {
-                when { "${TERRAFORM_WORKSPACE}" == 'prod' }
-                steps {
+            // stage('ProdApproval') {
+            //     when { "${TERRAFORM_WORKSPACE}" == 'prod' }
+            //     steps {
                     
-                        script {
-                             echo "${TERRAFORM_WORKSPACE}"
-                        timeout(time: 10, unit: 'MINUTES') {
-                            def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
-                            [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
-                            ])
-                        }
-                        }
-                    }    
-            }    
+            //             script {
+            //                  echo "${TERRAFORM_WORKSPACE}"
+            //             timeout(time: 10, unit: 'MINUTES') {
+            //                 def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+            //                 [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+            //                 ])
+            //             }
+            //             }
+            //         }    
+            // }    
             
 
             }
