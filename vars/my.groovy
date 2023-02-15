@@ -3,55 +3,81 @@ def call(Map args =[ agent: '', dir: ''] ){
   args.dir = args.dir ?: '.'
   args.agent = args.agent ?: 'master'	
 
-  pipeline {
-
+pipeline {
     agent {
 	    label "${args.agent}"
     }
+ 
     environment {
       TERRAFORM_DIR = "$args.dir"
-	 }
+	 }	
+	
     stages {
+	    
+	    
+     	stage("Clean Workspace") {
+				steps {
+					cleanWs()
+				}
+			}
+   
+        stage("Terraform init") {
+		  steps {
+			  dir("${TERRAFORM_DIR}") {
 
-        stage('Terraform Fmt') {
-          steps {
-             dir("${TERRAFORM_DIR}") {  
-	       sh "pwd"	
-               sh "terraform fmt -list=true -diff=true"
-		} 
-          }
-        }
-  
+			           sh "ls -la"
+				    sh "terraform init -input=false"	
+				}
+			  
+			} 
+	     }
+				
+        stage('Terraform-Format') {
+            steps {
+		 dir("${TERRAFORM_DIR}") {  
+                sh "terraform fmt -list=true -diff=true"
+		 }
+            }
+            }
 
-      stage('Terraform Init') {
-        steps {
-        dir("${args.dir}") {
-
-	 		sh "ls -la"
-			sh "terraform init -input=false"	
-		}
-        }
-      }
-
-      stage('Terraform Validate') {
-        steps {
-          dir("${args.dir}") {    
+        stage('Terraform-Validate') {
+            steps {
+	        dir("${TERRAFORM_DIR}") {    
                 sh "terraform validate"
 		}
-        }
-      }
+            }
+            }
 
-      stage('Terraform Plan') {
-        steps {
-         dir("${args.dir}") {	    
+        stage('Terraform-Plan') {
+            steps {
+		dir("${TERRAFORM_DIR}") {	    
                 sh 'terraform plan -out tfplan'
 		}
+            }
+            }
+
+        stage('Terraform-Approval') {
+            steps {
+	        dir("${TERRAFORM_DIR}") {		    
+                script {
+                timeout(time: 10, unit: 'MINUTES') {
+                    def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+                    ])
+                }
+                }
+            }
+            }
+	}
+
+        stage('Terraform-Apply') {
+            steps {
+                sh 'terraform apply -input=false tfplan'
+                
+            }
+            }
+
         }
-      }
-
-    }
-
-
-  }
-
+    }	
 }
+
