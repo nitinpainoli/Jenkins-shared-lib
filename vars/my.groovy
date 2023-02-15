@@ -18,7 +18,7 @@ def call(Map args) {
 		sh "pwd"
 			
                 sh "terraform fmt -list=true -diff=true"
-		 }
+		 
           }
         }
   
