@@ -60,7 +60,9 @@ pipeline {
 
         stage('Approval') {
                 when {
-                    expression { "${TERRAFORM_WORKSPACE}" != 'prod'}
+                    expression { "${TERRAFORM_WORKSPACE}" != 'prod'
+                                echo "${TERRAFORM_WORKSPACE}"
+                               }
                     // {
                     //     echo "Excecuted only on prod workspace"
 
@@ -70,8 +72,10 @@ pipeline {
                 }
                 
                 steps {
+                    
                     //dir("${TERRAFORM_DIR}") {		    
                         script {
+                             echo "${TERRAFORM_WORKSPACE}"
                         timeout(time: 10, unit: 'MINUTES') {
                             def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
                             [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
