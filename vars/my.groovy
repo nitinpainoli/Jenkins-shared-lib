@@ -23,7 +23,7 @@ pipeline {
    
         stage("Terraform init") {
 		  steps {
-			  dir("${TERRAFORM_DIR}") {
+			  dir("home/ec2-user/jenkins/workspace/abc") {
 
 			           sh "ls -la"
 				    sh "terraform init -input=false"	
@@ -56,26 +56,26 @@ pipeline {
             }
             }
 
-        stage('Terraform-Approval') {
-            steps {
-	        dir("${TERRAFORM_DIR}") {		    
-                script {
-                timeout(time: 10, unit: 'MINUTES') {
-                    def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
-                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
-                    ])
-                }
-                }
-            }
-            }
-	}
+//         stage('Terraform-Approval') {
+//             steps {
+// 	        dir("${TERRAFORM_DIR}") {		    
+//                 script {
+//                 timeout(time: 10, unit: 'MINUTES') {
+//                     def userInput = input(id: 'Approve', message: 'Do You Want To Apply The Terraform Changes?', parameters: [
+//                     [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply Terraform Changes', name: 'Approve?']
+//                     ])
+//                 }
+//                 }
+//             }
+//             }
+// 	}
 
-        stage('Terraform-Apply') {
-            steps {
-                sh 'terraform apply -input=false tfplan'
+//         stage('Terraform-Apply') {
+//             steps {
+//                 sh 'terraform apply -input=false tfplan'
                 
-            }
-            }
+//             }
+//             }
 
         }
     }	
