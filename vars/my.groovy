@@ -22,12 +22,14 @@ def call(Map args =[ agent: '', dir: ''] ){
     agent {
 	    label "${args.agent}"
     }
-
+    environment {
+      TERRAFORM_DIR = "$args.dir"
+	 }
     stages {
 
         stage('Terraform Fmt') {
           steps {
-                dir("${args.dir}") {  
+                dir("${TERRAFORM_DIR}") {  
 		sh "pwd"
 			
                 sh "terraform fmt -list=true -diff=true"
