@@ -59,8 +59,7 @@ pipeline {
             }
 
         stage('nonprodApproval') {
-                when {
-                    "${TERRAFORM_WORKSPACE}" != 'prod' }
+                when { "${TERRAFORM_WORKSPACE}" != 'prod' }
                 steps {
                     
                     //dir("${TERRAFORM_DIR}") {		    
@@ -72,8 +71,7 @@ pipeline {
             }
 
             stage('ProdApproval') {
-                when {
-                    "${TERRAFORM_WORKSPACE}" == 'prod' }
+                when { "${TERRAFORM_WORKSPACE}" == 'prod' }
                 steps {
                     
                         script {
