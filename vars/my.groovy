@@ -1,21 +1,7 @@
-// def call(Map args = [
-//                       version: 'latest',
-//                       dir: '.',
-//                       args: '',
-//                       apply_branch_pattern: '^(.*/)?(main|master)$',
-//                       env: [],
-//                       creds: [],
-//                       checkout: [],
-//                       container: null,
-//                       yamlFile: 'ci/jenkins-pod.yaml'
-//                      ] ){
-	
 def call(Map args =[ agent: '', dir: ''] ){
 
   args.dir = args.dir ?: '.'
   args.agent = args.agent ?: 'master'	
-
-//"${args.agent}: ${args.dir}"	
 
   pipeline {
 
@@ -29,10 +15,9 @@ def call(Map args =[ agent: '', dir: ''] ){
 
         stage('Terraform Fmt') {
           steps {
-                dir("${TERRAFORM_DIR}") {  
-		sh "pwd"
-			
-                sh "terraform fmt -list=true -diff=true"
+             dir("${TERRAFORM_DIR}") {  
+	       sh "pwd"	
+               sh "terraform fmt -list=true -diff=true"
 		} 
           }
         }
@@ -42,9 +27,9 @@ def call(Map args =[ agent: '', dir: ''] ){
         steps {
         dir("${args.dir}") {
 
-			           sh "ls -la"
-				    sh "terraform init -input=false"	
-				}
+	 		sh "ls -la"
+			sh "terraform init -input=false"	
+		}
         }
       }
 
