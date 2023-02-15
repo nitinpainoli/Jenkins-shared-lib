@@ -48,56 +48,6 @@ def call(Map args) {
         }
       }
 
-    //   stage('Approval') {
-    //     when {
-    //       beforeInput true
-    //       allOf {
-    //         expression {
-    //           env.TERRAFORM_CHANGES != 'false'
-    //         }
-    //         anyOf {
-    //           // XXX: branch pattern fails to match anything unless part of a multibranch pipeline
-    //           branch pattern: "$args.apply_branch_pattern", comparator: "REGEXP"
-    //           // which is why we use an expression evaluation here
-    //           expression {
-    //             (env.GIT_BRANCH =~ ~"$args.apply_branch_pattern").matches()
-    //           }
-    //         }
-    //       }
-    //     }
-    //     steps {
-    //       //approval(args.approval_args)
-    //       withEnv(args.env){
-    //         approval()
-    //       }
-    //     }
-    //   }
-
-    //   stage('Terraform Apply') {
-    //     when {
-    //       allOf {
-    //         expression {
-    //           env.TERRAFORM_CHANGES != 'false'
-    //         }
-    //         anyOf {
-    //           // XXX: branch pattern fails to match anything unless part of a multibranch pipeline
-    //           branch pattern: "$args.apply_branch_pattern", comparator: "REGEXP"
-    //           // which is why we use an expression evaluation here
-    //           expression {
-    //             (env.GIT_BRANCH =~ ~"$args.apply_branch_pattern").matches()
-    //           }
-    //         }
-    //       }
-    //     }
-    //     steps {
-    //       withEnv(args.env){
-    //         withCredentials(args.creds){
-    //           terraformApply()
-    //         }
-    //       }
-    //     }
-    //   }
-
     }
 
 
