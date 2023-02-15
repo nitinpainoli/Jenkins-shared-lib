@@ -1,15 +1,15 @@
-def call(Map args =[ agent: '', dir: ''] ){
+def call(Map args =[ jenkins_agent: '', tf_dir: ''] ){
 
-  args.dir = args.dir ?: '.'
-  args.agent = args.agent ?: 'master'	
+  args.tf_dir = args.tf_dir ?: '.'
+  args.jenkins_agent = args.jenkins_agent ?: 'master'	
 
 pipeline {
     agent {
-	    label "${args.agent}"
+	    label "${args.jenkins_agent}"
     }
  
     environment {
-      TERRAFORM_DIR = "$args.dir"
+      TERRAFORM_DIR = "$args.tf_dir"
 	 }	
 	
     stages {
